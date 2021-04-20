@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     'corsheaders',
     'apigateway',
     'permissions',
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -152,7 +154,7 @@ REST_FRAMEWORK = {
     ],
     # 'DEFAULT_RENDERER_CLASSES': (
     #    'rest_framework.renderers.JSONRenderer',
-    #)
+    # )
 }
 
 
@@ -201,8 +203,6 @@ LOGGING = {
             'handlers': ['applogfile', 'console'],
             'level': 'DEBUG',
         },
-       
+
     }
 }
-
-
