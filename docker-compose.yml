@@ -17,34 +17,6 @@ services:
     networks:
       - mediexcel_network
 
-  configurator:
-    build: ./configurator
-    command: python manage.py runserver 0.0.0.0:8002
-    #command: gunicorn proj_configurator.wsgi:application --bind 0.0.0.0:8002
-    volumes:
-      - ./configurator:/usr/src/app/
-    ports:
-      - 8002:8002
-    env_file:
-      - ./configurator/.env.dev
-    depends_on: 
-      - mysql-db
-    networks:
-      - mediexcel_network
-
-  mysql-db:
-    build: ./databases/configurator
-    command: mysqld --default-authentication-plugin=mysql_native_password
-    #volumes:
-    #  - ./databases/configurator/backup:/var/lib/mysql
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=secret_pass
-      - MYSQL_DATABASE=mysql_dev
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=password
-    networks:
-      - mediexcel_network
 
   mysql-webgateway-db:
     build: ./databases/webgateway
