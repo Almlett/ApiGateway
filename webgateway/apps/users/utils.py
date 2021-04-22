@@ -172,7 +172,6 @@ class Auth:
         if not valid:
             return {'detail': 'Token caducado'}, HTTP_404_NOT_FOUND
         serializer_data = serializer(user, many=False).data
-        print(serializer_data)
         permission = serializer_data.get('permissions')
         user = "{} {}".format(serializer_data.get('first_name'), serializer_data.get('last_name'))
         department = serializer_data.get('department')

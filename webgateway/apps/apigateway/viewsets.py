@@ -4,6 +4,7 @@ Autogenerate viewsets file
 from rest_framework import viewsets
 from .models import Proyect, Api 	# pylint: disable=relative-beyond-top-level
 from .serializers import ProyectSerializer, ApiSerializer # pylint: disable=relative-beyond-top-level
+from users.serializers import ApiUserSerializer
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse

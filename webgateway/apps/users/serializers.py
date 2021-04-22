@@ -76,51 +76,6 @@ class ApiUserSerializer(serializers.ModelSerializer):
         validated_data['password'] = make_password(validated_data['password'])
         return super(ApiUserSerializer, self).create(validated_data)
 
-    @staticmethod
-    def get_permissions(obj, type = "all"):
-        """
-        type = all, frontend, backend
-        categorized = true, false
-        """
-        user_permissions = UserPermission.objects.filter(user=obj)
-        user_profiles = UserProfile.objects.filter(user=obj)
-        result = []
-        for perm in user_permissions:
-            if type == "query":
-                result.append(perm.permission)
-            else:
-                temp = {}
-                temp['id'] = perm.permission.id
-                temp['name'] = perm.permission.name
-                temp['key'] = perm.permission.key
-                #temp['api'] = perm.permission.api
-                temp['description'] = perm.permission.description
-                temp['type'] = perm.permission.type
-                temp['enabled'] = False if not perm.enabled else perm.permission.enabled
-                temp['profile'] = "extra permission"
-                result.append(temp)
-
-        for u_profile in user_profiles:
-            enabled_perm = u_profile.enabled
-            objects = ProfilePermission.objects.filter(profile=u_profile.profile)
-            for perm in objects:
-                if enabled_perm:
-                    enabled_perm = u_profile.profile.enabled
-                temp = {}
-                if type == "query":
-                    result.append(perm.permission)
-                else:
-                    temp['id'] = perm.permission.id
-                    temp['name'] = perm.permission.name
-                    temp['key'] = perm.permission.key
-                    #temp['api'] = perm.permission.api
-                    temp['description'] = perm.permission.description
-                    temp['type'] = perm.permission.type
-                    temp['enabled'] = False if not enabled_perm else perm.permission.enabled
-                    temp['profile'] = u_profile.profile.name
-                    result.append(temp)
-        return result
-
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """
